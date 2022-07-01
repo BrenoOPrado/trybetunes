@@ -6,6 +6,22 @@ header {
   align-items: center;
 }
 
+header nav {
+  display: flex;
+}
+
+header nav a {
+  color: black;
+  align-self: center;
+  height: 37px;
+  margin: 5px;
+  padding: 1px 0px;
+  text-align: center;
+  text-decoration: none;
+  border: 3px solid gray;
+  width: 130px;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
