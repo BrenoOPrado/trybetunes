@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
-import Loading from '../component/Loading';
+import Loading from '../components/Loading';
 
 class Login extends React.Component {
   constructor() {
@@ -72,24 +72,10 @@ class Login extends React.Component {
   }
 }
 
-Login.propsTypes = {
+Login.propTypes = {
   history: PropTypes.shape({
-    action: PropTypes.string,
-    block: PropTypes.func,
-    createHref: PropTypes.func,
-    go: PropTypes.func,
-    goBack: PropTypes.func,
-    goForward: PropTypes.func,
-    length: PropTypes.number,
-    listen: PropTypes.func,
-    location: PropTypes.shape({
-      hash: PropTypes.string,
-      pathname: PropTypes.string,
-      state: undefined,
-    }),
-    push: PropTypes.func.isRequired,
-    replace: PropTypes.func,
-  }),
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default Login;
