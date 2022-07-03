@@ -1,12 +1,19 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 class Search extends React.Component {
   constructor() {
     super();
     this.state = {
       inputValue: '',
+      prevValue: '',
       disabledButton: true,
+      loading: false,
+      populado: false,
+      returnAPI: [],
     };
   }
 
@@ -22,8 +29,64 @@ class Search extends React.Component {
     });
   }
 
+  onClickButton = async () => {
+    const { inputValue } = this.state;
+    this.setState({
+      prevValue: inputValue,
+      disabledButton: true,
+      loading: true,
+    });
+    const auxiliar = await searchAlbumsAPI(inputValue);
+    this.setState({
+      returnAPI: auxiliar,
+      inputValue: '',
+      loading: false,
+      populado: true,
+    });
+  }
+
   render() {
-    const { inputValue, disabledButton } = this.state;
+    const {
+      inputValue,
+      disabledButton,
+      loading,
+      populado,
+      prevValue,
+      returnAPI,
+    } = this.state;
+    const list = (populado)
+      ? (
+        <div>
+          Resultado de álbuns de:
+          {' '}
+          { prevValue }
+          <br />
+          <ul className="albuns-list">
+            {
+              returnAPI.map((artist) => (
+                <li
+                  key={ `${artist.artistId} - ${artist.collectionId}` }
+                  className="album"
+                >
+                  <NavLink
+                    to={ `/album/${artist.collectionId}` }
+                    data-testid={ `link-to-album-${artist.collectionId}` }
+                  >
+                    <img src={ artist.artworkUrl100 } alt={ artist.artistName } />
+                    <br />
+                    <p>{artist.collectionName}</p>
+                    <br />
+                    <p>{artist.artistName}</p>
+                  </NavLink>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      )
+      : <> </>;
+    const albuns = (returnAPI.length === 0) ? <h1>Nenhum álbum foi encontrado</h1>
+      : list;
     return (
       <div data-testid="page-search">
         <Header />
@@ -42,11 +105,17 @@ class Search extends React.Component {
               data-testid="search-artist-button"
               name="artist-button"
               disabled={ disabledButton }
+              onClick={ () => this.onClickButton() }
             >
               Pesquisar
             </button>
           </label>
         </form>
+        <main>
+          {
+            (loading) ? <Loading /> : albuns
+          }
+        </main>
       </div>
     );
   }
