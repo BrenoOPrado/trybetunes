@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import Loading from '../components/Loading';
 import MusicCard from '../components/MusicCard';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   constructor() {
@@ -11,6 +12,7 @@ class Album extends React.Component {
     this.state = {
       musics: [],
       loading: true,
+      favorites: [],
     };
   }
 
@@ -18,15 +20,16 @@ class Album extends React.Component {
     const { match } = this.props;
     const { params } = match;
     const music = await getMusics(params.id);
+    const favoriteSongs = await getFavoriteSongs();
     this.setState({
       musics: music,
       loading: false,
+      favorites: favoriteSongs,
     });
   }
 
   render() {
-    const { musics, loading } = this.state;
-    const { addSong } = this.props;
+    const { musics, loading, favorites } = this.state;
     const album = (
       <div data-testid="page-album">
         <Header />
@@ -45,7 +48,7 @@ class Album extends React.Component {
           <div>
             <MusicCard
               musics={ musics.slice(1, musics.length) }
-              addSong={ addSong }
+              favorites={ favorites }
             />
           </div>
         </div>
@@ -62,7 +65,6 @@ Album.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
-  addSong: PropTypes.func.isRequired,
 };
 
 export default Album;
