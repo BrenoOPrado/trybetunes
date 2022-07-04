@@ -18,8 +18,6 @@ class Album extends React.Component {
     const { match } = this.props;
     const { params } = match;
     const music = await getMusics(params.id);
-    console.log('oi');
-    console.log(music);
     this.setState({
       musics: music,
       loading: false,
@@ -28,7 +26,7 @@ class Album extends React.Component {
 
   render() {
     const { musics, loading } = this.state;
-    console.log(musics);
+    const { addSong } = this.props;
     const album = (
       <div data-testid="page-album">
         <Header />
@@ -45,7 +43,10 @@ class Album extends React.Component {
               : <> </>}
           </div>
           <div>
-            <MusicCard data={ musics } />
+            <MusicCard
+              musics={ musics.slice(1, musics.length) }
+              addSong={ addSong }
+            />
           </div>
         </div>
       </div>
@@ -61,6 +62,7 @@ Album.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
+  addSong: PropTypes.func.isRequired,
 };
 
 export default Album;

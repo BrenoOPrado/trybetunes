@@ -53,12 +53,32 @@ header nav a {
 .songs {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+.song {
+  background-color: white;
+  margin: 10px;
+  padding: 25px;
+  border-radius: 25px;
+  list-style: none;
+}
+
+.song div {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.song div label {
+  width: 15%;
 }
 
 .songs-collection {
   display: flex;
   flex-direction: column;
   margin: 25px;
+  width: 40%;
 }
 
 .songs-collection img {
