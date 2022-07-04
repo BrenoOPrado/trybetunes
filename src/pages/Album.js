@@ -12,7 +12,7 @@ class Album extends React.Component {
     this.state = {
       musics: [],
       loading: true,
-      favorites: [],
+      favorite: [],
     };
   }
 
@@ -23,13 +23,13 @@ class Album extends React.Component {
     const favoriteSongs = await getFavoriteSongs();
     this.setState({
       musics: music,
+      favorite: favoriteSongs,
       loading: false,
-      favorites: favoriteSongs,
     });
   }
 
   render() {
-    const { musics, loading, favorites } = this.state;
+    const { musics, loading, favorite } = this.state;
     const album = (
       <div data-testid="page-album">
         <Header />
@@ -48,7 +48,7 @@ class Album extends React.Component {
           <div>
             <MusicCard
               musics={ musics.slice(1, musics.length) }
-              favorites={ favorites }
+              prevFavorites={ favorite }
             />
           </div>
         </div>

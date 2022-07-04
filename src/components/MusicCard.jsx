@@ -1,14 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
-import { removeSong, addSong } from '../services/favoriteSongsAPI';
+import { getFavoriteSongs, removeSong, addSong } from '../services/favoriteSongsAPI';
 
 class MusicCard extends React.Component {
   constructor() {
     super();
     this.state = {
-      loading: false,
+      loading: true,
+      favorites: [],
     };
+  }
+
+  componentDidMount() {
+    const { prevFavorites } = this.props;
+    this.setState({
+      favorites: prevFavorites,
+      loading: false,
+    });
   }
 
   newSong = async ({ target }, name, url, id) => {
@@ -26,14 +35,16 @@ class MusicCard extends React.Component {
     } else {
       await removeSong({ trackId: id });
     }
+    const listFavorites = await getFavoriteSongs();
     this.setState({
       loading: false,
+      favorites: listFavorites,
     });
   }
 
   render() {
-    const { musics, favorites } = this.props;
-    const { loading } = this.state;
+    const { musics } = this.props;
+    const { loading, favorites } = this.state;
     const list = (
       <ul>
         {
@@ -75,7 +86,7 @@ MusicCard.propTypes = {
     previewUrl: PropTypes.string,
     trackId: PropTypes.number,
   })).isRequired,
-  favorites: PropTypes.arrayOf(PropTypes.shape({
+  prevFavorites: PropTypes.arrayOf(PropTypes.shape({
     trackName: PropTypes.string,
     previewUrl: PropTypes.string,
     trackId: PropTypes.number,

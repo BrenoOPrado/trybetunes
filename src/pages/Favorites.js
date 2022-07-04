@@ -23,11 +23,9 @@ class Favorites extends React.Component {
 
   render() {
     const { loading, songs } = this.state;
-    const list = (songs !== [])
-      ? (
-        <MusicCard musics={ songs } />
-      )
-      : <p>Você ainda não possui músicas favoritadas.</p>;
+    const list = (songs === [])
+      ? <p>Você ainda não possui músicas favoritadas.</p>
+      : <MusicCard musics={ songs } prevFavorites={ songs } />;
     return (
       <div data-testid="page-favorites">
         <Header />
