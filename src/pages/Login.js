@@ -50,7 +50,7 @@ class Login extends React.Component {
     if (loading) return (<Loading />);
     return (
       <div data-testid="page-login" className="login_page">
-        <h4>Login</h4>
+        <h4 className="middle">Login</h4>
         <form>
           <input
             type="text"

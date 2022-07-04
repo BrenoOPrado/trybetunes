@@ -23,6 +23,10 @@ header nav a {
   width: 130px;
 }
 
+.middle {
+  text-align: center;
+}
+
 .albuns-list {
   display: flex;
   flex-wrap: wrap;
@@ -44,6 +48,21 @@ header nav a {
   padding: 20px;
   margin: 10px 0px;
   list-style: none;
+}
+
+.songs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.songs-collection {
+  display: flex;
+  flex-direction: column;
+  margin: 25px;
+}
+
+.songs-collection img {
+  height: 250px;
 }
 
 * {

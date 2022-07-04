@@ -54,7 +54,7 @@ class Search extends React.Component {
       prevValue,
       returnAPI,
     } = this.state;
-    const list = (populado)
+    const list = (returnAPI.length !== 0)
       ? (
         <div>
           Resultado de álbuns de:
@@ -84,9 +84,9 @@ class Search extends React.Component {
           </ul>
         </div>
       )
-      : <> </>;
-    const albuns = (returnAPI.length === 0) ? <h1>Nenhum álbum foi encontrado</h1>
-      : list;
+      : <h3 className="middle">Nenhum álbum foi encontrado</h3>;
+    const albuns = (populado) ? list
+      : (<> </>);
     return (
       <div data-testid="page-search">
         <Header />
