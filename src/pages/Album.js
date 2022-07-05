@@ -49,6 +49,7 @@ class Album extends React.Component {
             <MusicCard
               musics={ musics.slice(1, musics.length) }
               prevFavorites={ favorite }
+              func={ () => {} }
             />
           </div>
         </div>

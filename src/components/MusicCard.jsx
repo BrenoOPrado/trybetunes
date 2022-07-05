@@ -34,6 +34,10 @@ class MusicCard extends React.Component {
       );
     } else {
       await removeSong({ trackId: id });
+      const { func } = this.props;
+      if (func !== undefined) {
+        func();
+      }
     }
     const listFavorites = await getFavoriteSongs();
     this.setState({
@@ -91,6 +95,7 @@ MusicCard.propTypes = {
     previewUrl: PropTypes.string,
     trackId: PropTypes.number,
   })).isRequired,
+  func: PropTypes.func.isRequired,
 };
 
 export default MusicCard;

@@ -21,11 +21,24 @@ class Favorites extends React.Component {
     });
   }
 
+  refresh = async () => {
+    this.setState({
+      loading: true,
+    });
+    const favoriteSongs = await getFavoriteSongs();
+    this.setState({
+      songs: favoriteSongs,
+      loading: false,
+    });
+  }
+
   render() {
     const { loading, songs } = this.state;
-    const list = (songs === [])
-      ? <p>Você ainda não possui músicas favoritadas.</p>
-      : <MusicCard musics={ songs } prevFavorites={ songs } />;
+    const list = (<MusicCard
+      musics={ songs }
+      prevFavorites={ songs }
+      func={ this.refresh }
+    />);
     return (
       <div data-testid="page-favorites">
         <Header />

@@ -203,7 +203,7 @@ small, .text_small {
 }
 
 button {
-  background: var(--accent);
+  background: rgb(73, 73, 73);
   border: transparent;
   border-radius: var(--borderRadius);
   box-shadow: var(--shadow-1);
